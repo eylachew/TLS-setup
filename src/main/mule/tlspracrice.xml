@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	<global-property doc:name="Global Property" doc:id="5147e817-8b31-4d47-a22d-90f5698b33e6" name="env" value="dev" />
 	<flow name="tlspracriceFlow" doc:id="b64bfc2b-78f3-4ea3-8edf-b28b9c68fb66" >
 		<http:listener doc:name="Listener" doc:id="bdb14216-363c-437f-bb40-6c982a3fd640" path="${http.path}" config-ref="HTTP_Listener_config" allowedMethods="GET" outputMimeType="application/json"/>
-		<logger level="INFO" doc:name="Logger" doc:id="0b1f2378-e7c7-49b4-bbc1-57f8cfc6254f" message="tls has started #[correlationId]"/>
+		<logger level="INFO" doc:name="start" doc:id="0b1f2378-e7c7-49b4-bbc1-57f8cfc6254f" message="#[attributes.method] tls  flow has started "/>
 		<ee:transform doc:name="Transform Message" doc:id="da00c681-b402-4ab8-bd8a-b27fe817bc90">
 			<ee:message>
 				<ee:set-payload><![CDATA[%dw 2.0
@@ -65,6 +65,7 @@ output application/json
 				</ee:transform>
 			</otherwise>
 		</choice>
+		<logger level="INFO" doc:name="end" doc:id="172b42ca-d25d-4d06-9e4e-db3b5ee7c3bd" message="#[attributes.method] tls  flow has ended "/>
 		<ee:transform doc:name="Transform Message" doc:id="d0969144-c6de-4d40-acf8-e4b8b97ac25e" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
